@@ -5,9 +5,15 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
+
+from db import DataBase
 from models.base import metadata_for_alembic as Base
 
 config = context.config
+config.set_main_option(
+    "sqlalchemy.url",
+    DataBase.url
+)
 
 
 if config.config_file_name is not None:

@@ -1,1 +1,2 @@
-from .Dish import DishRepo
+from .dish import DishRepo
+from .order import OrderRepo

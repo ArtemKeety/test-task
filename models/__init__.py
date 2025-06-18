@@ -1,2 +1,2 @@
-from .dish import Dish
+from .model import Dish, Order
 from .base import Model

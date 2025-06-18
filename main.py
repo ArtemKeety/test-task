@@ -1,18 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
-from db import DataBase
 from routers import *
 
 
 app = FastAPI()
 
 
-@app.get("/api")
-async def func():
-    await DataBase.check_connection()
-    return {"ok": "ok"}
-
 app.include_router(DishRouter, prefix="/api", tags=["dish"])
+app.include_router(OrderRouter, prefix="/api", tags=["order"])
 
 
 if __name__ == '__main__':

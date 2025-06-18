@@ -15,6 +15,6 @@ class DataBase:
         try:
             async with cls.engine.connect() as conn:
                 await conn.execute(text("SELECT 1"))
-            print("✅ Успешное подключение к БД")
+            print("Успешное подключение к БД")
         except SQLAlchemyError as e:
-            print(f"❌ Ошибка подключения к БД: {e}")
+            print(f"Ошибка подключения к БД: {e}")

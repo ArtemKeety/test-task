@@ -1,20 +1,20 @@
 from fastapi import Depends, APIRouter
 from services import DishService
-from schemas import DishCreate
+from schemas import DishCreate, DishResponse
 
 router = APIRouter()
 
 
-@router.get("/dishes/")
+@router.get("/dishes/", response_model=list[DishResponse])
 async def get_dish():
     return await DishService.get_all()
 
 
-@router.post("/dishes/")
+@router.post("/dishes/", response_model=int)
 async def add_dish(dish: DishCreate):
     return await DishService.add(dish)
 
 
-@router.delete("/dishes/{dish_id}")
+@router.delete("/dishes/{id}", response_model=int)
 async def remove_dish(dish_id: int):
     return await DishService.delete_by_id(dish_id)

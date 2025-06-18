@@ -1,9 +1,9 @@
 from functools import wraps
 
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, Row, RowMapping
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from typing import Callable
+from typing import Callable, Any, Sequence
 from db import DataBase
 from fastapi import HTTPException
 
@@ -38,11 +38,12 @@ class BaseRepo:
 
     @classmethod
     @handler
-    async def get_all(cls, db: AsyncSession) -> list[type(response_form)]:
+    async def get_all(cls, db: AsyncSession) -> list[type(response_form)]: #Sequence[Row[Any] | RowMapping | Any]: #
         data = select(cls.orm)
         result = await db.execute(data)
         results = result.scalars().all()
         return [cls.response_form.model_validate(item) for item in results]
+        #return result.scalars().all()
 
     @classmethod
     @handler
@@ -51,3 +52,12 @@ class BaseRepo:
         result = await db.execute(dl)
         await db.commit()
         return result.rowcount
+
+
+    @classmethod
+    @handler
+    async def get_by_id(cls, object_id: int, db: AsyncSession) -> type(response_form):
+        obj = select(cls.orm).where(cls.orm.id == object_id)
+        result = await db.execute(obj)
+        results = result.scalars().first()
+        return cls.response_form.model_validate(results)

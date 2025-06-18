@@ -1,3 +1,5 @@
+from pydantic import Field
+from typing import Optional
 from .base import Model
 
 # class DishRequest(Model):
@@ -9,9 +11,6 @@ from .base import Model
 #
 # class DishResponse(DishRequest):
 #     id: int
-
-from pydantic import Field
-from typing import Optional
 
 
 class DishBase(Model):

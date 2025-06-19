@@ -7,6 +7,11 @@ from typing import Callable, Any, Sequence
 from db import DataBase
 from fastapi import HTTPException
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 def handler(func):
     @wraps(func)
@@ -17,6 +22,7 @@ def handler(func):
                 return await func(*args, **kwargs, db=db)
             except SQLAlchemyError as e:
                 await db.rollback()
+                logger.error(f"{type(e).__name__}: {func.__name__} {e}")
                 raise HTTPException(status_code=500, detail=f"{type(e).__name__}: {func.__name__} {e}") from e
 
     return wrapper

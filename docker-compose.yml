@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Контейнер с PostgreSQL
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: mydatabase  # Имя базы данных
+      POSTGRES_USER: myuser    # Имя пользователя
+      POSTGRES_PASSWORD: mypassword  # Пароль пользователя
+    ports:
+      - "5432:5432"  # Пробрасываем порт PostgreSQL
+    networks:
+      - app_network
+
+  # Контейнер с Python приложением
+  app:
+    build: .  # Строим приложение из текущей директории (используется Dockerfile)
+    container_name: app_container
+    depends_on:
+      - db  # Ожидаем, что контейнер с БД запустится первым
+    environment:
+      DB_HOST: db  # Имя контейнера с базой данных, используется для связи
+      DB_NAME: mydatabase  # Имя базы данных
+      DB_USER: myuser  # Имя пользователя
+      DB_PASSWORD: mypassword  # Пароль пользователя
+      DB_PORT: 5432  # Порт PostgreSQL
+    ports:
+      - "8000:8000"  # Пробрасываем порт для FastAPI
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge  # Используем bridge для соединения контейнеров
+
+

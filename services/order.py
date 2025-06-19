@@ -39,7 +39,7 @@ class OrderService:
     @staticmethod
     async def update_order(order: OrderUpdate) -> Callable[[], int]:
         order_old = await OrderRepo.get_by_id(order.id)
-        if order and order.status.lower() == next_status(order_old.status):
+        if order and order.status.lower() == Status(order_old.status).next():
             return await OrderRepo.update_order(order)
         else:
             raise HTTPException(status_code=500, detail="Изменение статуса должно быть последовательным")

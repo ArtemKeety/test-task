@@ -6,12 +6,10 @@ class Status(str, Enum):
     second = "готовится"
     third = "доставляется"
 
+    def next(self):
+        members = list(Status)
+        idx = members.index(self)
+        if idx + 1 < len(members):
+            return members[idx + 1]
+        return "Доставлен"
 
-def next_status(status: str):
-    status = status.lower()
-    if status == Status.first:
-        return Status.second
-    elif status == Status.second:
-        return Status.third
-    else:
-        raise ValueError(f"{status} is not a valid status")

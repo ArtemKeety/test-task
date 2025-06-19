@@ -38,7 +38,7 @@ class BaseRepo:
 
     @classmethod
     @handler
-    async def get_all(cls, db: AsyncSession) -> list[type(response_form)]: #Sequence[Row[Any] | RowMapping | Any]: #
+    async def get_all(cls, db: AsyncSession) -> list[type(response_form)]:  #Sequence[Row[Any] | RowMapping | Any]: #
         data = select(cls.orm)
         result = await db.execute(data)
         results = result.scalars().all()
@@ -53,11 +53,10 @@ class BaseRepo:
         await db.commit()
         return result.rowcount
 
-
     @classmethod
     @handler
     async def get_by_id(cls, object_id: int, db: AsyncSession) -> type(response_form):
         obj = select(cls.orm).where(cls.orm.id == object_id)
         result = await db.execute(obj)
         results = result.scalars().first()
-        return cls.response_form.model_validate(results)
+        return cls.response_form.model_validate(results) if results else None

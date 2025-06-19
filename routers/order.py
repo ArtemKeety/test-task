@@ -1,11 +1,11 @@
 from fastapi import Depends, APIRouter
 from services import OrderService
-from schemas import OrderCreate, OrderUpdate
+from schemas import OrderCreate, OrderUpdate, OrderResponse
 
 router = APIRouter()
 
 
-@router.get("/orders/", response_model=list[OrderCreate])
+@router.get("/orders/", response_model=list[OrderResponse])
 async def get_orders():
     return await OrderService.get_all()
 

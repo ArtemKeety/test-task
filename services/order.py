@@ -1,3 +1,4 @@
+import asyncio
 from typing import Callable
 
 from fastapi import HTTPException
@@ -12,13 +13,12 @@ class OrderService:
     @staticmethod
     async def add(order: OrderCreate) -> int:
         """ При создании заказа проверять, что все указанные блюда существуют """
-        dish = await DishRepo.get_all()
-        dish_id_list = [i.id for i in dish] if dish else []
-
-        if all(i in dish_id_list for i in order.dishes_ids):
-            return await OrderRepo.add(order)
-        else:
+        dish = await asyncio.gather(*[DishRepo.get_by_id(i) for i in order.dishes_ids])
+        if None in dish:
             raise HTTPException(status_code=404, detail="Не найдены блюда для заказа")
+
+        return await OrderRepo.add(order)
+
 
 
     @staticmethod

@@ -13,12 +13,12 @@ class OrderRepo(BaseRepo):
     add_form = OrderCreate
     response_form = OrderIncomplete
     orm = Order
-    response_form_all = OrderCreate
+    response_form_all = OrderResponse
     update_form = OrderUpdate
 
     @classmethod
     @handler
-    async def add(cls, order_data: OrderCreate, db: AsyncSession) -> int:
+    async def add(cls, order_data: type(add_form), db: AsyncSession) -> int:
         dishes = (await db.execute(select(Dish).where(Dish.id.in_(order_data.dishes_ids)))).scalars().all()
         new_order = Order(
             customer_name=order_data.customer_name,
@@ -31,7 +31,7 @@ class OrderRepo(BaseRepo):
 
     @classmethod
     @handler
-    async def get_all(cls, db: AsyncSession) -> list[OrderResponse]:
+    async def get_all(cls, db: AsyncSession) -> list[type(response_form_all)]:
         result = await db.execute(select(Order).options(selectinload(Order.dishes)))
         results = result.scalars().all()
         return [OrderResponse.model_validate(i) for i in results]

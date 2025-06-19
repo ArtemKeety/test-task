@@ -1,6 +1,6 @@
 
-from schemas import DishCreate, DishResponse
-from models import Dish
+from app.schemas import DishCreate, DishResponse
+from app.models import Dish
 from .base import BaseRepo
 
 

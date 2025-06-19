@@ -1,7 +1,7 @@
 from typing import Callable
 
-from schemas import DishCreate, DishResponse
-from repo import DishRepo
+from app.schemas import DishCreate, DishResponse
+from app.repo import DishRepo
 
 
 class DishService:

@@ -1,6 +1,6 @@
-from fastapi import Depends, APIRouter
-from services import DishService
-from schemas import DishCreate, DishResponse
+from fastapi import APIRouter
+from app.services import DishService
+from app.schemas import DishCreate, DishResponse
 
 router = APIRouter()
 

@@ -5,8 +5,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from .base import BaseRepo, handler
-from models import Order, Dish
-from schemas import OrderCreate, OrderResponse, OrderIncomplete, OrderUpdate
+from app.models import Order, Dish
+from app.schemas import OrderCreate, OrderResponse, OrderIncomplete, OrderUpdate
 
 
 class OrderRepo(BaseRepo):

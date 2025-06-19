@@ -1,9 +1,9 @@
-from sqlalchemy import ForeignKey, Column, ForeignKeyConstraint, Integer, DateTime, String, Table, ForeignKey
+from sqlalchemy import Column, Integer, String, Table, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
 from .base import Model
-from utils import Status
+from app.utils import Status
 
 
 order_dish_table = Table(

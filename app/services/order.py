@@ -3,9 +3,9 @@ from typing import Callable
 
 from fastapi import HTTPException
 
-from schemas import OrderCreate, OrderResponse, OrderUpdate
-from repo import DishRepo, OrderRepo
-from utils import Status, next_status
+from app.schemas import OrderCreate, OrderResponse, OrderUpdate
+from app.repo import DishRepo, OrderRepo
+from app.utils import Status
 
 
 class OrderService:

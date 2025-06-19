@@ -7,7 +7,7 @@ from alembic import context
 
 
 from db import DataBase
-from models.base import metadata_for_alembic as Base
+from app.models.base import metadata_for_alembic as Base
 
 config = context.config
 config.set_main_option(

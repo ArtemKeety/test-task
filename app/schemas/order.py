@@ -1,8 +1,8 @@
 from .base import Model
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 from .dish import DishResponse
-from utils import Status
+from app.utils import Status
 
 
 class OrderUpdate(Model):

@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter
-from services import OrderService
-from schemas import OrderCreate, OrderUpdate, OrderResponse
+from app.services import OrderService
+from app.schemas import OrderCreate, OrderUpdate, OrderResponse
 
 router = APIRouter()
 

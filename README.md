@@ -49,6 +49,8 @@ FastAPI-приложение для управления заказами еды
 git clone https://github.com/your_username/restaurant-order-api.git
 cd restaurant-order-api
 
+---
+
 ### 2. Запуск 
 
 ```bash
